@@ -393,7 +393,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src={{asset('images/L.png')}} style="width: auto; height: 50px;>
+                <img src={{asset('images/L.png')}} style="width: auto; height: 50px;>~``~
                 <i class="fas fa-crown store-icon"></i>
                 <span>TopUp Games</span>
             </a>
