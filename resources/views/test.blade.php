@@ -1,1174 +1,1090 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Up Mobile Legends - ML Diamond Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Honkai: Star Rail Top-Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ml-primary: #FF8A00;
-            --ml-secondary: #3A0CA3;
-            --ml-accent: #4361EE;
-            --ml-dark: #0A0E17;
-            --ml-darker: #05070C;
-            --ml-card: #121826;
-            --ml-card-hover: #1A233A;
-            --light: #E2E8F0;
-            --success: #10B981;
-            --epic: #9C27B0;
-            --legendary: #FF9800;
-            --mythic: #F44336;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Exo 2', sans-serif;
         }
-        
+
+        :root {
+            --primary-color: #0a0a14;
+            --secondary-color: #1a1a2e;
+            --accent-color: #ffffff;
+            --highlight-color: #00e5ff;
+            --highlight-color-2: #b967ff;
+            --text-color: #f0f0f0;
+            --border-color: #2a2a4a;
+            --success-color: #00ff9d;
+        }
+
         body {
-            background: linear-gradient(135deg, var(--ml-darker) 0%, var(--ml-dark) 50%, var(--ml-darker) 100%);
-            color: var(--light);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
             min-height: 100vh;
-            padding-top: 80px;
-            background-attachment: fixed;
-        }
-        
-        /* Navbar */
-        .navbar {
-            background: rgba(10, 14, 23, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 138, 0, 0.2);
-            padding: 15px 0;
-        }
-        
-        .navbar-brand {
-            font-weight: 800;
-            color: var(--ml-primary);
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .store-icon {
-            font-size: 1.8rem;
-            margin-right: 10px;
-        }
-        
-        .nav-link {
-            color: var(--light);
-            font-weight: 500;
-            margin: 0 8px;
-            transition: all 0.3s;
+            overflow-x: hidden;
             position: relative;
         }
-        
-        .nav-link:hover, .nav-link.active {
-            color: var(--ml-primary);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--ml-primary);
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--ml-primary), #FF6B00);
-            border: none;
-            padding: 10px 20px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, rgba(58, 12, 163, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%),
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
-            padding: 40px 0;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
+
+        /* Animated Background Elements */
+        .stars {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
-            opacity: 0.1;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 5s) infinite ease-in-out;
+            opacity: var(--opacity, 0.7);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--opacity, 0.7); }
+            50% { opacity: calc(var(--opacity, 0.7) * 0.3); }
+        }
+
+        .floating-rocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             pointer-events: none;
         }
-        
-        .game-header {
+
+        .rock {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: 
+                radial-gradient(circle at 30% 30%, #3a3a5a, #2a2a4a);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.3;
+            animation: float var(--duration, 30s) infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .game-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
-            margin-right: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--ml-primary);
-        }
-        
-        .game-title {
-            font-weight: 800;
-            margin-bottom: 5px;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, var(--ml-primary), var(--ml-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Category Filter */
-        .category-filter {
-            background: var(--ml-card);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .category-btn {
-            background: var(--ml-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 8px 16px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--light);
-            transition: all 0.3s;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background: linear-gradient(135deg, var(--ml-primary), var(--ml-secondary));
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(255, 138, 0, 0.3);
-        }
-        
-        /* Product Cards */
-        .product-card {
-            background: linear-gradient(135deg, var(--ml-card) 0%, var(--ml-card-hover) 100%);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 20px;
-            height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            margin-bottom: 30px;
             position: relative;
         }
-        
-        .product-card::before {
+
+        header::after {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, var(--ml-primary), var(--ml-accent));
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
         }
-        
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 138, 0, 0.3);
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: relative;
         }
-        
-        .product-header {
-            background: linear-gradient(135deg, var(--ml-secondary), var(--ml-accent));
-            color: white;
-            padding: 15px;
-            text-align: center;
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--highlight-color), var(--highlight-color-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            animation: logoGlow 3s infinite alternate;
             position: relative;
             overflow: hidden;
         }
-        
-        .product-header::before {
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, var(--highlight-color), transparent, var(--highlight-color-2), transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            background: var(--secondary-color);
+            border-radius: 50%;
+        }
+
+        .logo-image {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            border-radius: 50%;
+            z-index: 1;
+            position: relative;
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(185, 103, 255, 0.7); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, var(--highlight-color), var(--highlight-color-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
+            100% { text-shadow: 0 0 15px rgba(185, 103, 255, 0.7), 0 0 20px rgba(185, 103, 255, 0.5); }
+        }
+
+        .animated-text {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--highlight-color);
+            animation: glow 2s infinite alternate;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--highlight-color);
+            }
+            to {
+                text-shadow: 0 0 15px var(--highlight-color), 0 0 20px var(--highlight-color);
+            }
+        }
+
+        .btn-game-info {
+            background: linear-gradient(135deg, var(--highlight-color), var(--highlight-color-2));
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            color: var(--primary-color);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+            font-family: 'Exo 2', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-game-info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 229, 255, 0.5);
+        }
+
+        /* Logo Upload Section */
+        .logo-upload {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 10px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .logo-upload p {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: var(--highlight-color);
+        }
+
+        .logo-upload input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .game-info {
+            background: linear-gradient(135deg, rgba(45, 45, 78, 0.7), rgba(26, 26, 46, 0.9));
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-info::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
+            background: linear-gradient(45deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 6s infinite linear;
         }
-        
-        .product-card:hover .product-header::before {
-            opacity: 1;
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
-        
-        .product-body {
-            padding: 20px;
-            text-align: center;
+
+        .game-info h2 {
+            color: var(--highlight-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
             position: relative;
             z-index: 1;
         }
-        
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--ml-primary);
-            margin: 10px 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+        .game-info h2 i {
+            margin-right: 10px;
         }
-        
-        .product-original-price {
-            text-decoration: line-through;
-            color: var(--light);
-            opacity: 0.6;
-            font-size: 0.9rem;
-        }
-        
-        .product-bonus {
-            color: var(--success);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin: 5px 0;
-        }
-        
-        .product-footer {
-            padding: 15px 20px 20px;
-            text-align: center;
-        }
-        
-        .btn-buy {
-            background: linear-gradient(135deg, var(--ml-primary), #FF6B00);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 0;
-            font-weight: 700;
+
+        .game-image {
             width: 100%;
-            transition: all 0.3s;
-            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-color), #3a3a5a);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        .btn-buy::before {
+
+        .game-image::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(45deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            animation: imageShine 3s infinite linear;
         }
-        
-        .btn-buy:hover::before {
-            left: 100%;
+
+        @keyframes imageShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
-        
-        .btn-buy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
-        }
-        
-        .badge-popular {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(135deg, var(--ml-primary), #FF6B00);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            z-index: 2;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Section Titles */
-        .section-title {
-            font-weight: 700;
-            color: var(--light);
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(135deg, var(--ml-primary), var(--ml-accent));
-            border-radius: 2px;
-        }
-        
-        /* Hover Preview */
-        .preview-container {
-            position: absolute;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 180px;
-            background: var(--ml-card);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-            overflow: hidden;
-            border: 2px solid var(--ml-primary);
-        }
-        
-        .product-card:hover .preview-container {
-            opacity: 1;
-            visibility: visible;
-            top: -220px;
-        }
-        
-        .preview-image {
+
+        .game-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .preview-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 10px;
-            color: white;
-            font-size: 0.8rem;
-        }
-        
-        .item-rarity {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-        
-        .rarity-common {
-            background: #607D8B;
-        }
-        
-        .rarity-rare {
-            background: #2196F3;
-        }
-        
-        .rarity-epic {
-            background: var(--epic);
-        }
-        
-        .rarity-legendary {
-            background: var(--legendary);
-        }
-        
-        .rarity-mythic {
-            background: var(--mythic);
-        }
-        
-        /* Modal Konfirmasi */
-        .modal-content {
-            background: linear-gradient(135deg, var(--ml-card) 0%, var(--ml-card-hover) 100%);
-            color: var(--light);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
-        
-        .modal-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        .game-desc {
+            line-height: 1.6;
+            color: #cccccc;
+            position: relative;
+            z-index: 1;
         }
-        
-        .modal-title {
-            font-weight: 700;
-            color: var(--ml-primary);
-        }
-        
-        .form-control {
-            background: var(--ml-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--light);
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            background: var(--ml-dark);
-            border-color: var(--ml-primary);
-            color: var(--light);
-            box-shadow: 0 0 0 0.2rem rgba(255, 138, 0, 0.25);
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: var(--light);
-        }
-        
-        .order-summary {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .order-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.1rem;
+
+        /* Game Image Upload Section */
+        .game-image-upload {
             margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 10px;
+            border: 1px dashed var(--border-color);
         }
-        
+
+        .game-image-upload p {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: var(--highlight-color);
+        }
+
+        .game-image-upload input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 12px;
+        }
+
+        /* Top Up Form */
+        .topup-form {
+            background: linear-gradient(135deg, rgba(45, 45, 78, 0.7), rgba(26, 26, 46, 0.9));
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topup-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(185, 103, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 8s infinite linear;
+        }
+
+        .topup-form h2 {
+            color: var(--highlight-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .topup-form h2 i {
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--highlight-color);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .package-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .package-option {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .package-option:hover {
+            border-color: var(--highlight-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .package-option:hover::before {
+            opacity: 1;
+        }
+
+        .package-option.selected {
+            border-color: var(--highlight-color);
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .package-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--highlight-color);
+        }
+
+        .package-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-method {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-method::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(185, 103, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--highlight-color-2);
+            transform: translateY(-3px);
+        }
+
+        .payment-method:hover::before {
+            opacity: 1;
+        }
+
+        .payment-method.selected {
+            border-color: var(--highlight-color-2);
+            background: rgba(185, 103, 255, 0.1);
+            box-shadow: 0 0 10px rgba(185, 103, 255, 0.3);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--highlight-color);
+        }
+
+        .payment-name {
+            font-size: 12px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--highlight-color), var(--highlight-color-2));
+            border: none;
+            border-radius: 12px;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--highlight-color-2), var(--highlight-color));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 229, 255, 0.5);
+        }
+
+        .btn-submit:hover::before {
+            opacity: 1;
+        }
+
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--ml-darker) 0%, var(--ml-dark) 100%);
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: 50px;
-            border-top: 1px solid rgba(255, 138, 0, 0.2);
-        }
-        
-        .footer-title {
-            font-weight: 700;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            color: var(--ml-primary);
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--ml-primary);
-        }
-        
-        .copyright {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            margin-top: 30px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.6);
+            padding: 20px 0;
+            margin-top: 40px;
+            color: #999;
+            font-size: 14px;
+            position: relative;
         }
-        
-        /* Breadcrumb */
-        .breadcrumb {
-            background-color: transparent;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-        
-        .breadcrumb-item a {
-            color: var(--ml-primary);
-            text-decoration: none;
-        }
-        
-        .breadcrumb-item.active {
-            color: var(--light);
-        }
-        
-        .breadcrumb-item + .breadcrumb-item::before {
-            color: var(--light);
-        }
-        
-        /* Form validation styles */
-        .is-invalid {
-            border-color: #dc3545 !important;
-        }
-        
-        .invalid-feedback {
-            display: none;
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin-top: 0.25rem;
-            font-size: 0.875em;
-            color: #dc3545;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
         }
-        
-        .is-invalid ~ .invalid-feedback {
-            display: block;
-        }
-        
-        /* Floating particles */
-        .particles {
+
+        /* Popup Game */
+        .popup-game {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            background-color: rgba(10, 10, 20, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--ml-primary);
+
+        .popup-game.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, rgba(45, 45, 78, 0.9), rgba(26, 26, 46, 0.95));
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            position: relative;
+            border: 1px solid var(--border-color);
+            animation: popupAppear 0.5s ease-out;
+        }
+
+        @keyframes popupAppear {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-header {
+            padding: 20px;
+            background: rgba(26, 26, 46, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .popup-title {
+            font-size: 24px;
+            color: var(--highlight-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .close-popup {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
+
+        .close-popup:hover {
+            color: var(--highlight-color);
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .popup-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #1a1a2e, #2a2a4a);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .popup-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            animation: imageShine 3s infinite linear;
+        }
+
+        .popup-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .popup-desc {
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
             }
-            10% {
-                opacity: 0.3;
+            
+            .package-options {
+                grid-template-columns: 1fr;
             }
-            90% {
-                opacity: 0.3;
+            
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
             }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-crown store-icon"></i>
-                <span>ML Diamond Store</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Toko</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Mobile Legends</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Game Lain</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="#" class="btn btn-primary">
-                        <i class="fas fa-shopping-cart me-1"></i> Keranjang
-                        <span class="badge bg-danger ms-1">3</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- Animated Background Elements -->
+    <div class="stars" id="stars"></div>
+    <div class="floating-rocks" id="rocks"></div>
 
-    <!-- Main Content -->
     <div class="container">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Toko</a></li>
-                <li class="breadcrumb-item"><a href="#">Pilih Game</a></li>
-                <li class="breadcrumb-item active">Mobile Legends</li>
-            </ol>
-        </nav>
-        
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <div class="game-header">
-                <img src="https://cdn1.codashop.com/S/content/mobile/images/product/MLBB.jpg" alt="Mobile Legends" class="game-icon">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <!-- Logo image that can be changed -->
+                    <img src="{{asset('images/Leviathan.jpg')}}" alt="Store Logo" class="logo-image" id="storeLogo">
+                </div>
                 <div>
-                    <h2 class="game-title">Mobile Legends: Bang Bang</h2>
-                    <p class="mb-0">Top up Diamond Mobile Legends dengan harga terbaik dan proses instan</p>
+                    <h1 class="logo-text">Star Rail Top-Up</h1>
+                    <p class="animated-text">Top Up Oneiric Shards dengan Mudah dan Cepat</p>
+                    
+                    
                 </div>
             </div>
-        </div>
-        
-        <!-- Category Filter -->
-        <div class="category-filter">
-            <h3 class="section-title">Kategori Diamond</h3>
-            <div class="d-flex flex-wrap">
-                <button class="category-btn active">Semua</button>
-                <button class="category-btn">Weekly Diamond</button>
-                <button class="category-btn">Starlight Member</button>
-                <button class="category-btn">Twilight Pass</button>
+            <div class="header-actions">
+                <button class="btn-game-info" id="btnGameInfo">
+                    <i class="fas fa-info-circle"></i> Info Game
+                </button>
             </div>
-        </div>
-        
-        <!-- Products Section -->
-        <section id="products" class="mb-5">
-            <h3 class="section-title">Pilihan Diamond Mobile Legends</h3>
-            
-            <div class="row">
-                <!-- Diamond sesuai ketentuan in-game -->
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/6/6f/Emblem_Physical.png" alt="Basic Emblem" class="preview-image">
-                            <div class="preview-info">
-                                <div>Basic Emblem Set</div>
-                                <div class="item-rarity rarity-common">Common</div>
-                            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="game-info">
+                <h2><i class="fas fa-gamepad"></i> Honkai: Star Rail</h2>
+                <div class="game-image">
+                    <!-- Game image that can be changed -->
+                    <img src="{{asset('images/hsr.jpg')}}" alt="Honkai Star Rail" class="game-image-content" id="gameImage">
+                </div>
+                
+                <div class="game-desc">
+                    <p>Honkai: Star Rail adalah game RPG fantasi sci-fi yang dikembangkan oleh HoYoverse. Bergabunglah dengan Trailblazers dalam petualangan epik melintasi bintang-bintang.</p>
+                    <p style="margin-top: 15px;">Top up Oneiric Shards untuk mendapatkan karakter dan light cone favorit Anda!</p>
+                </div>
+            </section>
+
+            <section class="topup-form">
+                <h2><i class="fas fa-shopping-cart"></i> Form Top-Up</h2>
+                
+                <div class="form-group">
+                    <label for="player-id">Player ID</label>
+                    <input type="text" id="player-id" placeholder="Masukkan ID Game Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="server">Server</label>
+                    <select id="server">
+                        <option value="america">America</option>
+                        <option value="europe">Europe</option>
+                        <option value="asia">Asia</option>
+                        <option value="taiwan">TW, HK, MO</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Pilih Paket Oneiric Shards</label>
+                    <div class="package-options">
+                        <div class="package-option" data-value="60">
+                            <div class="package-name">60 Oneiric Shards</div>
+                            <div class="package-price">Rp 15.000</div>
                         </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">86 Diamonds</h5>
+                        <div class="package-option" data-value="300">
+                            <div class="package-name">300 + 30 Oneiric Shards</div>
+                            <div class="package-price">Rp 75.000</div>
                         </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 22.000</div>
-                            <p class="product-original-price">Rp 25.000</p>
-                            <p class="product-bonus">Bonus 5 Diamonds</p>
+                        <div class="package-option" data-value="980">
+                            <div class="package-name">980 + 110 Oneiric Shards</div>
+                            <div class="package-price">Rp 245.000</div>
                         </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="86 Diamonds" data-price="22000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
+                        <div class="package-option" data-value="1980">
+                            <div class="package-name">1980 + 260 Oneiric Shards</div>
+                            <div class="package-price">Rp 490.000</div>
+                        </div>
+                        <div class="package-option" data-value="3280">
+                            <div class="package-name">3280 + 600 Oneiric Shards</div>
+                            <div class="package-price">Rp 815.000</div>
+                        </div>
+                        <div class="package-option" data-value="6480">
+                            <div class="package-name">6480 + 1600 Oneiric Shards</div>
+                            <div class="package-price">Rp 1.630.000</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/4/44/Skin_Franco_Heavy_Anchor.png" alt="Franco Skin" class="preview-image">
-                            <div class="preview-info">
-                                <div>Franco - Heavy Anchor</div>
-                                <div class="item-rarity rarity-rare">Rare</div>
-                            </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-value="gopay">
+                            <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="payment-name">GoPay</div>
                         </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">172 Diamonds</h5>
+                        <div class="payment-method" data-value="ovo">
+                            <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="payment-name">OVO</div>
                         </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 44.000</div>
-                            <p class="product-original-price">Rp 50.000</p>
-                            <p class="product-bonus">Bonus 10 Diamonds</p>
+                        <div class="payment-method" data-value="dana">
+                            <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="payment-name">DANA</div>
                         </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="172 Diamonds" data-price="44000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
+                        <div class="payment-method" data-value="linkaja">
+                            <div class="payment-icon"><i class="fas fa-qrcode"></i></div>
+                            <div class="payment-name">LinkAja</div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <span class="badge-popular">POPULER</span>
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/8/8f/Skin_Gusion_Street_Ball.png" alt="Gusion Skin" class="preview-image">
-                            <div class="preview-info">
-                                <div>Gusion - Street Ball</div>
-                                <div class="item-rarity rarity-epic">Epic</div>
-                            </div>
+                        <div class="payment-method" data-value="bank">
+                            <div class="payment-icon"><i class="fas fa-university"></i></div>
+                            <div class="payment-name">Transfer Bank</div>
                         </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">257 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 65.000</div>
-                            <p class="product-original-price">Rp 75.000</p>
-                            <p class="product-bonus">Bonus 15 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="257 Diamonds" data-price="65000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
+                        <div class="payment-method" data-value="credit">
+                            <div class="payment-icon"><i class="fas fa-credit-card"></i></div>
+                            <div class="payment-name">Kartu Kredit</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/6/6e/Skin_Layla_Blazing_West.png" alt="Layla Skin" class="preview-image">
-                            <div class="preview-info">
-                                <div>Layla - Blazing West</div>
-                                <div class="item-rarity rarity-epic">Epic</div>
-                            </div>
-                        </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">344 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 86.000</div>
-                            <p class="product-original-price">Rp 100.000</p>
-                            <p class="product-bonus">Bonus 20 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="344 Diamonds" data-price="86000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="payment-number">Nomor Pembayaran</label>
+                    <input type="text" id="payment-number" placeholder="Masukkan nomor sesuai metode pembayaran">
                 </div>
                 
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/1/1c/Skin_Alucard_Child_of_The_Fall.png" alt="Alucard Skin" class="preview-image">
-                            <div class="preview-info">
-                                <div>Alucard - Child of The Fall</div>
-                                <div class="item-rarity rarity-legendary">Legendary</div>
-                            </div>
-                        </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">429 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 107.000</div>
-                            <p class="product-original-price">Rp 125.000</p>
-                            <p class="product-bonus">Bonus 25 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="429 Diamonds" data-price="107000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <span class="badge-popular">PROMO</span>
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/4/4d/Skin_Gusion_Venom.png" alt="Gusion Venom" class="preview-image">
-                            <div class="preview-info">
-                                <div>Gusion - Venom</div>
-                                <div class="item-rarity rarity-legendary">Legendary</div>
-                            </div>
-                        </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">514 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 128.000</div>
-                            <p class="product-original-price">Rp 150.000</p>
-                            <p class="product-bonus">Bonus 30 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="514 Diamonds" data-price="128000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/0/0c/Skin_Lancelot_Dark_Breaker.png" alt="Lancelot Skin" class="preview-image">
-                            <div class="preview-info">
-                                <div>Lancelot - Dark Breaker</div>
-                                <div class="item-rarity rarity-mythic">Mythic</div>
-                            </div>
-                        </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">706 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 173.000</div>
-                            <p class="product-original-price">Rp 200.000</p>
-                            <p class="product-bonus">Bonus 40 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="706 Diamonds" data-price="173000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="product-card">
-                        <span class="badge-popular">TERLARIS</span>
-                        <div class="preview-container">
-                            <img src="https://static.wikia.nocookie.net/mobile-legends/images/7/7e/Skin_Gusion_KOF.png" alt="Gusion KOF" class="preview-image">
-                            <div class="preview-info">
-                                <div>Gusion - KOF Collaboration</div>
-                                <div class="item-rarity rarity-mythic">Mythic</div>
-                            </div>
-                        </div>
-                        <div class="product-header">
-                            <h5 class="mb-0">875 Diamonds</h5>
-                        </div>
-                        <div class="product-body">
-                            <div class="product-price">Rp 215.000</div>
-                            <p class="product-original-price">Rp 250.000</p>
-                            <p class="product-bonus">Bonus 50 Diamonds</p>
-                        </div>
-                        <div class="product-footer">
-                            <button class="btn-buy" data-bs-toggle="modal" data-bs-target="#orderModal" data-product="875 Diamonds" data-price="215000">
-                                <i class="fas fa-shopping-cart me-2"></i>Beli Sekarang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <button class="btn-submit">Konfirmasi & Bayar</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Star Rail Top-Up. All rights reserved. Honkai: Star Rail is a trademark of HoYoverse.</p>
+        </footer>
     </div>
 
-    <!-- Modal Konfirmasi Order -->
-    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderModalLabel">Konfirmasi Order</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Popup Game Info -->
+    <div class="popup-game" id="popupGame">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3 class="popup-title">Honkai: Star Rail</h3>
+                <button class="close-popup" id="closePopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="popup-image">
+                    <i class="fas fa-space-shuttle" style="font-size: 80px; color: var(--highlight-color);"></i>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6 class="mb-3">Informasi Pemesanan</h6>
-                            <div class="order-summary">
-                                <div class="order-item">
-                                    <span>Produk:</span>
-                                    <span id="productName">-</span>
-                                </div>
-                                <div class="order-item">
-                                    <span>Harga:</span>
-                                    <span id="productPrice">-</span>
-                                </div>
-                                <div class="order-total">
-                                    <span>Total:</span>
-                                    <span id="totalPrice">-</span>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4">
-                                <h6 class="mb-3">Data Akun Mobile Legends</h6>
-                                <div class="mb-3">
-                                    <label for="playerId" class="form-label">Player ID</label>
-                                    <input type="text" class="form-control" id="playerId" placeholder="Masukkan ID Mobile Legends" required>
-                                    <div class="invalid-feedback">Player ID harus diisi</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="serverId" class="form-label">Server ID</label>
-                                    <input type="text" class="form-control" id="serverId" placeholder="Masukkan Server ID" required>
-                                    <div class="invalid-feedback">Server ID harus diisi</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nickname" class="form-label">Nickname</label>
-                                    <input type="text" class="form-control" id="nickname" placeholder="Masukkan Nickname" required>
-                                    <div class="invalid-feedback">Nickname harus diisi</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <h6 class="mb-3">Informasi Kontak</h6>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Masukkan email aktif" required>
-                                <div class="form-text text-muted">Untuk konfirmasi dan notifikasi order</div>
-                                <div class="invalid-feedback">Email harus diisi dengan format yang benar</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Nomor WhatsApp</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Contoh: 08123456789" required>
-                                <div class="form-text text-muted">Untuk komunikasi jika ada kendala</div>
-                                <div class="invalid-feedback">Nomor WhatsApp harus diisi</div>
-                            </div>
-                            
-                            <div class="mt-4">
-                                <h6 class="mb-3">Metode Pembayaran</h6>
-                                <div class="mb-3">
-                                    <select class="form-select" id="paymentMethod" required>
-                                        <option value="" selected disabled>Pilih metode pembayaran</option>
-                                        <option value="gopay">Gopay</option>
-                                        <option value="ovo">OVO</option>
-                                        <option value="dana">DANA</option>
-                                        <option value="linkaja">LinkAja</option>
-                                        <option value="bank">Transfer Bank</option>
-                                    </select>
-                                    <div class="invalid-feedback">Pilih metode pembayaran</div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
-                                <label class="form-check-label" for="agreeTerms">
-                                    Saya menyetujui <a href="#" class="text-primary">Syarat dan Ketentuan</a>
-                                </label>
-                                <div class="invalid-feedback">Anda harus menyetujui syarat dan ketentuan</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="confirmOrder">Konfirmasi & Bayar</button>
+                <div class="popup-desc">
+                    <p>Honkai: Star Rail adalah game role-playing adventure yang dikembangkan oleh HoYoverse, pembuat Genshin Impact dan Honkai Impact 3rd. Game ini menawarkan pengalaman sci-fi fantasy dengan grafis yang memukau dan sistem pertarungan yang menarik.</p>
+                    <p style="margin-top: 15px;">Dalam game ini, pemain akan menjelajahi berbagai dunia dengan karakter yang unik dan cerita yang mendalam. Oneiric Shards adalah mata uang premium dalam game yang dapat digunakan untuk membeli item, karakter, dan light cone.</p>
+                    <p style="margin-top: 15px;">Dengan top-up di website kami, proses pengisian Oneiric Shards menjadi lebih mudah, cepat, dan aman. Nikmati berbagai promo dan bonus yang kami tawarkan!</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">ML Diamond Store</h5>
-                    <p>Layanan top up diamond Mobile Legends terpercaya dengan proses instan dan harga terjangkau.</p>
-                </div>
-                <div class="col-md-2 mb-4">
-                    <h5 class="footer-title">Layanan</h5>
-                    <ul class="footer-links">
-                        <li><a href="#">Mobile Legends</a></li>
-                        <li><a href="#">Free Fire</a></li>
-                        <li><a href="#">PUBG Mobile</a></li>
-                        <li><a href="#">Valorant</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 mb-4">
-                    <h5 class="footer-title">Bantuan</h5>
-                    <ul class="footer-links">
-                        <li><a href="#">Cara Order</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Kontak</a></li>
-                        <li><a href="#">Syarat & Ketentuan</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Kontak Kami</h5>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope me-2"></i> cs@mldiamondstore.com</li>
-                        <li><i class="fab fa-whatsapp me-2"></i> +62 812 3456 7890</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p class="mb-0">&copy; 2023 ML Diamond Store. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Script untuk mengisi data produk di modal
-        document.addEventListener('DOMContentLoaded', function() {
-            const orderModal = document.getElementById('orderModal');
-            const buyButtons = document.querySelectorAll('.btn-buy');
-            
-            buyButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const product = this.getAttribute('data-product');
-                    const price = this.getAttribute('data-price');
-                    
-                    document.getElementById('productName').textContent = product;
-                    document.getElementById('productPrice').textContent = 'Rp ' + parseInt(price).toLocaleString('id-ID');
-                    document.getElementById('totalPrice').textContent = 'Rp ' + parseInt(price).toLocaleString('id-ID');
-                    
-                    // Reset form validation
-                    resetFormValidation();
-                });
-            });
-            
-            // Fungsi untuk reset validasi form
-            function resetFormValidation() {
-                const formInputs = document.querySelectorAll('#orderModal .form-control, #orderModal .form-select, #orderModal .form-check-input');
-                formInputs.forEach(input => {
-                    input.classList.remove('is-invalid');
-                });
-            }
-            
-            // Fungsi untuk validasi form
-            function validateForm() {
-                let isValid = true;
-                
-                // Validasi Player ID
-                const playerId = document.getElementById('playerId');
-                if (!playerId.value.trim()) {
-                    playerId.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    playerId.classList.remove('is-invalid');
-                }
-                
-                // Validasi Server ID
-                const serverId = document.getElementById('serverId');
-                if (!serverId.value.trim()) {
-                    serverId.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    serverId.classList.remove('is-invalid');
-                }
-                
-                // Validasi Nickname
-                const nickname = document.getElementById('nickname');
-                if (!nickname.value.trim()) {
-                    nickname.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    nickname.classList.remove('is-invalid');
-                }
-                
-                // Validasi Email
-                const email = document.getElementById('email');
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!email.value.trim() || !emailRegex.test(email.value)) {
-                    email.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    email.classList.remove('is-invalid');
-                }
-                
-                // Validasi Nomor WhatsApp
-                const phone = document.getElementById('phone');
-                if (!phone.value.trim()) {
-                    phone.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    phone.classList.remove('is-invalid');
-                }
-                
-                // Validasi Metode Pembayaran
-                const paymentMethod = document.getElementById('paymentMethod');
-                if (!paymentMethod.value) {
-                    paymentMethod.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    paymentMethod.classList.remove('is-invalid');
-                }
-                
-                // Validasi Syarat dan Ketentuan
-                const agreeTerms = document.getElementById('agreeTerms');
-                if (!agreeTerms.checked) {
-                    agreeTerms.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    agreeTerms.classList.remove('is-invalid');
-                }
-                
-                return isValid;
-            }
-            
-            // Event listener untuk tombol konfirmasi
-            document.getElementById('confirmOrder').addEventListener('click', function() {
-                if (validateForm()) {
-                    // Simpan data order ke localStorage (opsional)
-                    const orderData = {
-                        product: document.getElementById('productName').textContent,
-                        price: document.getElementById('totalPrice').textContent,
-                        playerId: document.getElementById('playerId').value,
-                        serverId: document.getElementById('serverId').value,
-                        nickname: document.getElementById('nickname').value,
-                        email: document.getElementById('email').value,
-                        phone: document.getElementById('phone').value,
-                        paymentMethod: document.getElementById('paymentMethod').value
-                    };
-                    
-                    localStorage.setItem('orderData', JSON.stringify(orderData));
-                    
-                    // Tampilkan pesan sukses
-                    alert('Order berhasil! Anda akan diarahkan ke halaman pembayaran.');
-                    
-                    // Tutup modal
-                    const modal = bootstrap.Modal.getInstance(orderModal);
-                    modal.hide();
-                    
-                    // Redirect ke halaman pembayaran setelah modal tertutup
-                    setTimeout(function() {
-                        window.location.href = '/home/nigg/pembayaran';
-                    }, 500);
-                } else {
-                    alert('Harap lengkapi semua data dengan benar!');
-                }
-            });
-            
-            // Membuat partikel floating
-            createParticles();
-        });
-        
-        // Fungsi untuk membuat partikel floating
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random position
-                const left = Math.random() * 100;
-                const delay = Math.random() * 15;
-                
-                particle.style.left = `${left}%`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
+        // Create animated stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.setProperty('--duration', `${5 + Math.random() * 10}s`);
+            star.style.setProperty('--opacity', `${0.3 + Math.random() * 0.7}`);
+            starsContainer.appendChild(star);
         }
+
+        // Create floating rocks
+        const rocksContainer = document.getElementById('rocks');
+        for (let i = 0; i < 15; i++) {
+            const rock = document.createElement('div');
+            rock.classList.add('rock');
+            rock.style.left = `${Math.random() * 100}%`;
+            rock.style.width = `${50 + Math.random() * 100}px`;
+            rock.style.height = rock.style.width;
+            rock.style.setProperty('--duration', `${20 + Math.random() * 40}s`);
+            rocksContainer.appendChild(rock);
+        }
+
+        // Logo Upload Functionality
+        const logoUpload = document.getElementById('logoUpload');
+        const storeLogo = document.getElementById('storeLogo');
+
+        logoUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    storeLogo.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Game Image Upload Functionality
+        const gameImageUpload = document.getElementById('gameImageUpload');
+        const gameImage = document.getElementById('gameImage');
+
+        gameImageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    gameImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Package Selection
+        const packageOptions = document.querySelectorAll('.package-option');
+        packageOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                packageOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Payment Method Selection
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+                
+                // Update payment number placeholder based on selected method
+                const paymentNumber = document.getElementById('payment-number');
+                const methodValue = method.getAttribute('data-value');
+                
+                if (methodValue === 'gopay' || methodValue === 'ovo' || methodValue === 'dana' || methodValue === 'linkaja') {
+                    paymentNumber.placeholder = 'Masukkan nomor telepon';
+                } else if (methodValue === 'bank') {
+                    paymentNumber.placeholder = 'Masukkan nomor rekening';
+                } else if (methodValue === 'credit') {
+                    paymentNumber.placeholder = 'Masukkan nomor kartu kredit';
+                }
+            });
+        });
+
+        // Popup Game Info
+        const btnGameInfo = document.getElementById('btnGameInfo');
+        const popupGame = document.getElementById('popupGame');
+        const closePopup = document.getElementById('closePopup');
+
+        btnGameInfo.addEventListener('click', () => {
+            popupGame.classList.add('active');
+        });
+
+        closePopup.addEventListener('click', () => {
+            popupGame.classList.remove('active');
+        });
+
+        // Close popup when clicking outside
+        popupGame.addEventListener('click', (e) => {
+            if (e.target === popupGame) {
+                popupGame.classList.remove('active');
+            }
+        });
+
+        // Form Submission
+        const btnSubmit = document.querySelector('.btn-submit');
+        btnSubmit.addEventListener('click', () => {
+            const playerId = document.getElementById('player-id').value;
+            const server = document.getElementById('server').value;
+            const selectedPackage = document.querySelector('.package-option.selected');
+            const selectedPayment = document.querySelector('.payment-method.selected');
+            const paymentNumber = document.getElementById('payment-number').value;
+            
+            if (!playerId) {
+                alert('Masukkan Player ID terlebih dahulu!');
+                return;
+            }
+            
+            if (!selectedPackage) {
+                alert('Pilih paket Oneiric Shards terlebih dahulu!');
+                return;
+            }
+            
+            if (!selectedPayment) {
+                alert('Pilih metode pembayaran terlebih dahulu!');
+                return;
+            }
+            
+            if (!paymentNumber) {
+                alert('Masukkan nomor pembayaran terlebih dahulu!');
+                return;
+            }
+            
+            // Simulasi proses pembayaran
+            alert(`Top-up berhasil diproses!\n\nDetail:\nPlayer ID: ${playerId}\nServer: ${server}\nPaket: ${selectedPackage.querySelector('.package-name').textContent}\nMetode: ${selectedPayment.querySelector('.payment-name').textContent}\nNomor: ${paymentNumber}\n\nSilakan selesaikan pembayaran Anda.`);
+        });
+
+        // Add hover effect to form inputs
+        const formInputs = document.querySelectorAll('input, select');
+        formInputs.forEach(input => {
+            input.addEventListener('mouseenter', () => {
+                input.style.transform = 'translateY(-2px)';
+                input.style.boxShadow = '0 5px 15px rgba(0, 229, 255, 0.2)';
+            });
+            
+            input.addEventListener('mouseleave', () => {
+                if (document.activeElement !== input) {
+                    input.style.transform = 'translateY(0)';
+                    input.style.boxShadow = 'inset 0 2px 5px rgba(0, 0, 0, 0.3)';
+                }
+            });
+        });
     </script>
 </body>
 </html>
